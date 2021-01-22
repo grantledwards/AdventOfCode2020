@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.io.*;
 import java.lang.reflect.Array;
+import java.math.BigInteger;
 import java.util.*;
 
 import javax.swing.JFrame;
@@ -71,7 +72,7 @@ public class AdventSolverApp extends JFrame {
 		dayOneOneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String dayOneAnswer = ""+dayOneMain(dayOneFilename);
+				String dayOneAnswer = "Final Answer:\n"+dayOneMainOne(dayOneFilename);
 				JOptionPane.showMessageDialog(AdventSolverApp.this, dayOneAnswer);
 			}
 		});
@@ -82,7 +83,7 @@ public class AdventSolverApp extends JFrame {
 		dayOneTwoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				String dayOneAnswerTwo = ""+dayOneMainTwo(dayOneFilename);
+				String dayOneAnswerTwo = "Final Answer:\n"+dayOneMainTwo(dayOneFilename);
 				JOptionPane.showMessageDialog(AdventSolverApp.this, dayOneAnswerTwo);
 			}
 		});
@@ -103,63 +104,473 @@ public class AdventSolverApp extends JFrame {
 		dayTwoLabelOne.setBounds(10,11,124,14);
 		panelDayTwo.add(dayTwoLabelOne);
 		
-		JButton dayTwoOneButton = new JButton("execute Part One");
-		dayTwoOneButton.addActionListener(new ActionListener(){
+		JButton dayTwoButtonOne = new JButton("execute Part One");
+		dayTwoButtonOne.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0)
 			{
-				String dayTwoAnswer = ""+dayTwoMainOne(dayTwoFilename);
+				String dayTwoAnswer = "Final Answer:\n"+dayTwoMainOne(dayTwoFilename);
 				JOptionPane.showMessageDialog(AdventSolverApp.this, dayTwoAnswer);
 			}
 		});
-		dayTwoOneButton.setBounds(10,36,147,23);
-		panelDayTwo.add(dayTwoOneButton);
+		dayTwoButtonOne.setBounds(10,36,147,23);
+		panelDayTwo.add(dayTwoButtonOne);
 		
 		JButton dayTwoTwoButton = new JButton("execute Part Two");
 		dayTwoTwoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String dayTwoAnswerTwo = ""+dayTwoMainTwo(dayTwoFilename);
+				String dayTwoAnswerTwo = "Final Answer:\n"+dayTwoMainTwo(dayTwoFilename);
 				JOptionPane.showMessageDialog(AdventSolverApp.this, dayTwoAnswerTwo);
 			}
 		});
 		dayTwoTwoButton.setBounds(10,70,147,23);
 		panelDayTwo.add(dayTwoTwoButton);
 		
+		//day three
+		//------------------------------------------------
+		JPanel panelDayThree = new JPanel();
+		tabbedPane.addTab("DayThree", null, panelDayThree, null);
+		panelDayThree.setLayout(null);
+		
+		String dayThreeFilename = "dayThreeInput.txt";
+		
+		JLabel dayThreeFilenameLabel = new JLabel(String.format("file: %s", dayThreeFilename));
+		dayThreeFilenameLabel.setBounds(10,11,124,14);
+		panelDayThree.add(dayThreeFilenameLabel);
+		
+		JButton dayThreeButtonOne = new JButton("execute Part One");
+		dayThreeButtonOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0)
+			{
+				String dayThreeAnswer = "" + dayThreeMainOne(dayThreeFilename);
+				JOptionPane.showMessageDialog(AdventSolverApp.this, "Final Answer:/n" + dayThreeAnswer);
+			}
+		});
+		dayThreeButtonOne.setBounds(10, 36, 147, 23);
+		panelDayThree.add(dayThreeButtonOne);
+		
+		JButton dayThreeButtonTwo = new JButton("execute Part Two");
+		dayThreeButtonTwo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0)
+			{
+				String dayThreeAnswerTwo = "Final Answer:\n" + dayThreeMainTwo(dayThreeFilename);
+				JOptionPane.showMessageDialog(AdventSolverApp.this, dayThreeAnswerTwo);
+			}
+		});
+		dayThreeButtonTwo.setBounds(10,70,147,23);
+		panelDayThree.add(dayThreeButtonTwo);
+		
 		//day five
-				//------------------------------------------------
-				JPanel panelDayFive = new JPanel();
-				tabbedPane.addTab("DayFive", null, panelDayFive, null);
-				panelDayFive.setLayout(null);
-				
-				String dayFiveFilename = "dayFiveInput.txt";
-				
-				JLabel dayFiveLabelOne = new JLabel(String.format("file: %s", dayFiveFilename));
-				dayFiveLabelOne.setBounds(10,11,124,14);
-				panelDayFive.add(dayFiveLabelOne);
-				
-				JButton dayFiveOneButton = new JButton("execute Part One");
-				dayFiveOneButton.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent arg0)
-					{
-						String dayFiveAnswer = ""+dayFiveMainOne(dayFiveFilename);
-						JOptionPane.showMessageDialog(AdventSolverApp.this, "Answer:\n"+dayFiveAnswer);
-					}
-				});
-				dayFiveOneButton.setBounds(10,36,147,23);
-				panelDayFive.add(dayFiveOneButton);
-				
-				JButton dayFiveTwoButton = new JButton("execute Part Two");
-				dayFiveTwoButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						String dayFiveAnswerTwo = ""+dayFiveMainTwo(dayFiveFilename);
-						JOptionPane.showMessageDialog(AdventSolverApp.this, "Answer:\n"+dayFiveAnswerTwo);
-					}
-				});
-				dayFiveTwoButton.setBounds(10,70,147,23);
-				panelDayFive.add(dayFiveTwoButton);
+		//------------------------------------------------
+		JPanel panelDayFive = new JPanel();
+		tabbedPane.addTab("DayFive", null, panelDayFive, null);
+		panelDayFive.setLayout(null);
+
+		String dayFiveFilename = "dayFiveInput.txt";
+
+		JLabel dayFiveLabelOne = new JLabel(String.format("file: %s", dayFiveFilename));
+		dayFiveLabelOne.setBounds(10,11,124,14);
+		panelDayFive.add(dayFiveLabelOne);
+
+		JButton dayFiveOneButton = new JButton("execute Part One");
+		dayFiveOneButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+				String dayFiveAnswer = ""+dayFiveMainOne(dayFiveFilename);
+				JOptionPane.showMessageDialog(AdventSolverApp.this, "Answer:\n"+dayFiveAnswer);
+			}
+		});
+		dayFiveOneButton.setBounds(10,36,147,23);
+		panelDayFive.add(dayFiveOneButton);
+
+		JButton dayFiveTwoButton = new JButton("execute Part Two");
+		dayFiveTwoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String dayFiveAnswerTwo = ""+dayFiveMainTwo(dayFiveFilename);
+				JOptionPane.showMessageDialog(AdventSolverApp.this, "Answer:\n"+dayFiveAnswerTwo);
+			}
+		});
+		dayFiveTwoButton.setBounds(10,70,147,23);
+		panelDayFive.add(dayFiveTwoButton);
+		
+		//day six
+		//------------------------------------------------
+		JPanel panelDaySix = new JPanel();
+		tabbedPane.addTab("DaySix", null, panelDaySix, null);
+		panelDaySix.setLayout(null);
+
+		String daySixFilename = "daySixInput.txt";
+
+		JLabel daySixLabelOne = new JLabel(String.format("file: %s", daySixFilename));
+		daySixLabelOne.setBounds(10,11,124,14);
+		panelDaySix.add(daySixLabelOne);
+
+		JButton daySixButtonOne = new JButton("execute Part One");
+		daySixButtonOne.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0)
+			{
+				String daySixAnswer = ""+daySixMainOne(daySixFilename);
+				JOptionPane.showMessageDialog(AdventSolverApp.this, "Answer:\n"+daySixAnswer);
+			}
+		});
+		daySixButtonOne.setBounds(10,36,147,23);
+		panelDaySix.add(daySixButtonOne);
+
+		JButton daySixButtonTwo = new JButton("execute Part Two");
+		daySixButtonTwo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				String daySixAnswerTwo = ""+daySixMainTwo(daySixFilename);
+				JOptionPane.showMessageDialog(AdventSolverApp.this, "Answer:\n"+daySixAnswerTwo);
+			}
+		});
+		daySixButtonTwo.setBounds(10,70,147,23);
+		panelDaySix.add(daySixButtonTwo);
 	}
 	
 	
-	/* Day Five Helper Method
+	private int dayOneMainOne(String filename)
+	{
+		int ret = 0;
+		Scanner scanCtr = null;
+		Scanner scanReal = null;
+		try
+		{
+			scanCtr = new Scanner(new File(filename));
+			scanReal = new Scanner(new File(filename));
+		}
+		catch( FileNotFoundException fnfe)
+		{
+			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+		}
+		
+		int ctr = 0;
+		while(scanCtr.hasNext()) 
+		{
+			scanCtr.nextInt();
+			ctr++;
+		}
+		
+		int[] arr = new int[ctr];
+		
+		for(int i=0;i<ctr;i++)
+		{
+			arr[i] = scanReal.nextInt();
+		}
+		
+		//JOptionPane.showMessageDialog(this, "{"+ctr+"}");
+		
+		for(int j=0;j<ctr;j++)
+		{
+			for(int k=0;k<ctr;k++)
+			{
+				if(arr[j] + arr[k] == 2020)
+				{
+					ret = arr[j] * arr[k];
+					JOptionPane.showMessageDialog(this, "("+arr[j]+"),("+arr[k]+")");
+				}
+			}
+		}
+		scanCtr.close();
+		scanReal.close();
+		
+		return ret;
+	}
+	
+	private int dayOneMainTwo(String filename)
+	{
+		int ret = 0;
+		Scanner scanCtr = null;
+		Scanner scanReal = null;
+		try
+		{
+			scanCtr = new Scanner(new File(filename));
+			scanReal = new Scanner(new File(filename));
+		}
+		catch( FileNotFoundException fnfe)
+		{
+			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+		}
+		
+		int ctr = 0;
+		while(scanCtr.hasNext()) 
+		{
+			scanCtr.nextInt();
+			ctr++;
+		}
+		
+		int[] arr = new int[ctr];
+		
+		for(int i=0;i<ctr;i++)
+		{
+			arr[i] = scanReal.nextInt();
+		}
+		
+		for(int j=0;j<ctr;j++)
+		{
+			for(int k=0;k<ctr;k++)
+			{
+				for(int l=0;l<ctr;l++)
+				{
+					if(arr[j] + arr[k] + arr[l] == 2020)
+					{
+						ret = arr[j] * arr[k] * arr[l];
+						JOptionPane.showMessageDialog(this, "("+arr[j]+"),("+arr[k]+"),("+arr[l]+")");
+					}
+				}
+			}
+		}
+		scanCtr.close();
+		scanReal.close();
+		
+		return ret;
+	}
+	
+	
+	private int dayTwoMainTwo(String filename)
+	{
+		//create a scanner
+		Scanner scan = null;
+		try {
+			scan = new Scanner(new File(filename));
+		}
+		catch(FileNotFoundException fnfe){
+			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+		}
+		
+		String line,password;			//the full line from the input file, and the password
+		char keyChar;					//key char value
+		int numOne,numTwo;	
+		boolean oneMatches, twoMatches;
+		String[] strArr;				//an array of strings
+		int spamCounter = 0;			//prevent spam
+		int ret = 0; 					//return variable
+		
+		
+		while(scan.hasNext())
+		{
+			//get the next line
+			line = scan.nextLine();
+			
+			//split the line into a string array using either '-' or ':' or ' '
+			strArr = line.split("[-: ]");
+			
+			if(Array.getLength(strArr) > 1)
+			{
+				//parse string array into usable variables
+				numOne = Integer.parseInt(strArr[0]);
+				numTwo = Integer.parseInt(strArr[1]);
+				keyChar	 = strArr[2].charAt(0);
+				password = strArr[4];
+				
+				oneMatches = (password.charAt(numOne-1) == keyChar);
+				twoMatches = (password.charAt(numTwo-1) == keyChar);
+						
+				//if oneMatches XOR twoMatches, increase ret by one
+				if(oneMatches ^ twoMatches) {
+					ret++;
+					/*
+					 * the following lines are for testing purposes and 
+					 * transparency of the internal process.
+					 * It displays the first few valid passwords, and some variables
+					 * */
+					spamCounter ++;
+					if(spamCounter <= 3)
+						JOptionPane.showMessageDialog(this, "Is valid: \n(left:"+numOne+" "+oneMatches+")(right:"+numTwo+" "+twoMatches+
+								")\n(char:"+keyChar+")\n(pass:"+password+")");
+					
+				}
+			}
+		}
+		
+		scan.close();
+		//return the return value
+		return ret;
+	}
+	
+	private int dayTwoMainOne(String filename)
+	{
+		//create a scanner
+		Scanner scan = null;
+		try {
+			scan = new Scanner(new File(filename));
+		}
+		catch(FileNotFoundException fnfe){
+			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+		}
+		
+		String line,password;			//the full line from the input file, and the password
+		char keyChar;					//key char value
+		int minCount,maxCount, count;	//minimum char occurrences, maximum, and count of occurences
+		String[] strArr;				//an array of strings
+		int spamCounter = 0;			//prevent spam
+		int ret = 0; 					//return variable
+		
+		
+		while(scan.hasNext())
+		{
+			//get the next line
+			line = scan.nextLine();
+			
+			//split the line into a string array using either '-' or ':' or ' '
+			strArr = line.split("[-: ]");
+			
+			if(Array.getLength(strArr) > 1)
+			{
+				//parse string array into usable variables
+				minCount = Integer.parseInt(strArr[0]);
+				maxCount = Integer.parseInt(strArr[1]);
+				keyChar	 = strArr[2].charAt(0);
+				password = strArr[4];
+				
+				//count the number of occurrences of the key character in the password
+				count = 0;
+				for(int i=0 ;i<password.length();i++)
+				{
+					if( password.charAt(i) == keyChar)
+						count++;
+				}
+				
+				//if the count is appropriate, increase return value by one
+				if(count <= maxCount && count >= minCount)
+				{
+					//create a messagebox (but only a few to avoid spam)
+					spamCounter++;
+					if(spamCounter <= 3)
+						JOptionPane.showMessageDialog(this, "Is valid:\n(min:"+minCount+")(max:"+maxCount+
+								")\n(char:"+keyChar+")\n(pass:"+password+")");
+					
+					//increase return value by one
+					ret++;
+				}
+			}
+		}
+		scan.close();
+		
+		//return the return value
+		return ret;
+	}
+	
+	private int dayThreeMainOne(String filename)
+	{
+		//create a scanner
+		Scanner scan = null ;
+		try {
+			scan = new Scanner(new File(filename));
+		}
+		catch(FileNotFoundException fnfe){
+			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+		}
+	
+		String line;						//Scanned line
+		char[][] map = new char[323][31];	//2d array of chars with the same dimensions as the input file
+		int ctr = 0;
+		
+		while(scan.hasNext())
+		{
+			//get the next line
+			line = scan.nextLine();
+			map[ctr] = line.toCharArray();
+			ctr++;
+			
+		}
+		scan.close();
+		
+		char retrieved;
+		int countedTrees = 0;
+		
+		for(int xCoord = 0 , yCoord = 0; yCoord < 323 ; xCoord += 3 , yCoord += 1)
+		{
+			retrieved = getFromTreeMap(xCoord, yCoord, map, 31, 323);
+			
+			if(retrieved == '#')
+				countedTrees ++;
+			else if(retrieved != '.')
+				JOptionPane.showMessageDialog(this, "something went wrong: "+ retrieved);
+				
+		}
+		
+		//return the return value
+		return countedTrees;
+	}
+	
+	private long dayThreeMainTwo(String filename)
+	{
+		//create a scanner
+		Scanner scan = null , measuringScan = null;
+		try {
+			scan = new Scanner(new File(filename));
+			measuringScan = new Scanner(new File(filename));
+		}
+		catch(FileNotFoundException fnfe){
+			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+		}
+		
+		String line;						//Scanned line
+		char[][] map = new char[323][31];	//2d array of chars with the same dimensions as the input file
+		int ctr = 0;
+		
+		while(scan.hasNext())
+		{
+			//get the next line
+			line = scan.nextLine();
+			map[ctr] = line.toCharArray();
+			ctr++;
+			
+		}
+		scan.close();
+		
+		long dOneROne	= 0 + treeCounter(1,1,map); // down one right one
+		long dOneRThree	= 0 + treeCounter(3,1,map); // down one right three
+		long dOneRFive 	= 0 + treeCounter(5,1,map); // down one right five
+		long dOneRSeven = 0 + treeCounter(7,1,map); // down one right seven
+		long dTwoROne 	= 0 + treeCounter(1,2,map); // down two right one
+		
+		long ret = dOneROne * dOneRThree * dOneRFive * dOneRSeven * dTwoROne;
+		//return the return value
+		return ret;//dOneROne +", "+ dOneRThree +", "+ dOneRFive +", "+ dOneRSeven +", "+ dTwoROne;
+	}
+	
+	/* Helper Method for Day three, part two
+	 * Counts the number of trees along a path down the
+	 * map, given the path's rise and run 
+	 * */
+	private int treeCounter(int xChange, int yChange, char[][] map)
+	{
+		char retrieved;
+		int countedTrees = 0;
+		
+		for(int xCoord = 0 , yCoord = 0; yCoord < 323 ; xCoord += xChange , yCoord += yChange)
+		{
+			retrieved = getFromTreeMap(xCoord, yCoord, map, 31, 323);
+			
+			if(retrieved == '#')
+				countedTrees ++;
+			else if(retrieved != '.')
+				JOptionPane.showMessageDialog(this, "something went wrong: "+ retrieved);
+				
+		}
+		
+		return countedTrees;
+	}
+	
+	/* Helper Method for Day three, part one and two
+	 * retrieves a char from a 2d array, given an  
+	 * x coordinate, a y coordinate, and that the array
+	 * repeats infinitely along the x axis
+	 * */
+	
+	private char getFromTreeMap(int xCoord, int yCoord, 
+			char[][] treeMap, int mapWidth, int mapHeight)
+	{
+		char ret = 'x';
+		
+		if(xCoord >= 0 && (yCoord <= mapHeight || yCoord >= 0))
+			ret = treeMap[yCoord][xCoord%mapWidth];
+	
+		return ret;
+	}
+
+	/* Helper method for Day Five, parts one and two
 	 * divides one int by another, always rounding Up
 	 * */
 	private int roundUpDivide(int input,int divisor)
@@ -331,7 +742,7 @@ public class AdventSolverApp extends JFrame {
 		return ret;
 	}
 	
-	private int dayTwoMainTwo(String filename)
+	private int daySixMainOne(String filename)
 	{
 		//create a scanner
 		Scanner scan = null;
@@ -342,57 +753,42 @@ public class AdventSolverApp extends JFrame {
 			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
 		}
 		
-		String line,password;			//the full line from the input file, and the password
-		char keyChar;					//key char value
-		int numOne,numTwo;	
-		boolean oneMatches, twoMatches;
-		String[] strArr;				//an array of strings
-		int spamCounter = 0;			//prevent spam
-		int ret = 0; 					//return variable
+		int ret = 0;
 		
+		LinkedList<daySixGroup> groups = new LinkedList<daySixGroup>();
+		daySixGroup current = new daySixGroup();
+		String line = "empty";
 		
-		while(scan.hasNext())
+		while (scan.hasNext()) 
 		{
-			//get the next line
 			line = scan.nextLine();
-			
-			//split the line into a string array using either '-' or ':' or ' '
-			strArr = line.split("[-: ]");
-			
-			if(Array.getLength(strArr) > 1)
+			if(line.trim().length() < 1) // each group is separated with a blank line
 			{
-				//parse string array into usable variables
-				numOne = Integer.parseInt(strArr[0]);
-				numTwo = Integer.parseInt(strArr[1]);
-				keyChar	 = strArr[2].charAt(0);
-				password = strArr[4];
+				groups.add(current); // add this group to the list
 				
-				oneMatches = (password.charAt(numOne-1) == keyChar);
-				twoMatches = (password.charAt(numTwo-1) == keyChar);
-						
-				//if oneMatches XOR twoMatches, increase ret by one
-				if(oneMatches ^ twoMatches) {
-					ret++;
-					/*
-					 * the following lines are for testing purposes and 
-					 * transparency of the internal process.
-					 * It displays the first few valid passwords, and some variables
-					 * */
-					spamCounter ++;
-					if(spamCounter <= 3)
-						JOptionPane.showMessageDialog(this, "Is valid: \n(left:"+numOne+" "+oneMatches+")(right:"+numTwo+" "+twoMatches+
-								")\n(char:"+keyChar+")\n(pass:"+password+")");
-					
-				}
+				//JOptionPane.showMessageDialog(this, "group: "+current.getAnswers());
+				
+				current = new daySixGroup();
 			}
+			else
+			{
+				current.addMember(line);
+				
+				//JOptionPane.showMessageDialog(this, "group: "+current.getAnswers());
+			}
+		}
+		groups.add(current); // add the last group to the list
+		
+		for(daySixGroup reader : groups)
+		{
+			ret += reader.getAnswers().length();
 		}
 		
 		scan.close();
-		//return the return value
 		return ret;
 	}
 	
-	private int dayTwoMainOne(String filename)
+	private int daySixMainTwo(String filename)
 	{
 		//create a scanner
 		Scanner scan = null;
@@ -402,153 +798,104 @@ public class AdventSolverApp extends JFrame {
 		catch(FileNotFoundException fnfe){
 			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
 		}
-		
-		String line,password;			//the full line from the input file, and the password
-		char keyChar;					//key char value
-		int minCount,maxCount, count;	//minimum char occurrences, maximum, and count of occurences
-		String[] strArr;				//an array of strings
-		int spamCounter = 0;			//prevent spam
-		int ret = 0; 					//return variable
-		
-		
-		while(scan.hasNext())
-		{
-			//get the next line
-			line = scan.nextLine();
-			
-			//split the line into a string array using either '-' or ':' or ' '
-			strArr = line.split("[-: ]");
-			
-			if(Array.getLength(strArr) > 1)
-			{
-				//parse string array into usable variables
-				minCount = Integer.parseInt(strArr[0]);
-				maxCount = Integer.parseInt(strArr[1]);
-				keyChar	 = strArr[2].charAt(0);
-				password = strArr[4];
-				
-				//count the number of occurrences of the key character in the password
-				count = 0;
-				for(int i=0 ;i<password.length();i++)
-				{
-					if( password.charAt(i) == keyChar)
-						count++;
-				}
-				
-				//if the count is appropriate, increase return value by one
-				if(count <= maxCount && count >= minCount)
-				{
-					//create a messagebox (but only a few to avoid spam)
-					spamCounter++;
-					if(spamCounter <= 3)
-						JOptionPane.showMessageDialog(this, "Is valid:\n(min:"+minCount+")(max:"+maxCount+
-								")\n(char:"+keyChar+")\n(pass:"+password+")");
-					
-					//increase return value by one
-					ret++;
-				}
-			}
-		}
-		scan.close();
-		
-		//return the return value
-		return ret;
-	}
 
-	private int dayOneMain(String filename)
-	{
-		int ret = 0;
-		Scanner scanCtr = null;
-		Scanner scanReal = null;
-		try
-		{
-			scanCtr = new Scanner(new File(filename));
-			scanReal = new Scanner(new File(filename));
-		}
-		catch( FileNotFoundException fnfe)
-		{
-			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
-		}
+		int ret = 0, spamCounter = 0; 
 		
-		int ctr = 0;
-		while(scanCtr.hasNext()) 
+		LinkedList<daySixGroup> groups = new LinkedList<daySixGroup>();
+		daySixGroup current = new daySixGroup();
+		String line = "empty";
+		
+		while (scan.hasNext()) 
 		{
-			scanCtr.nextInt();
-			ctr++;
-		}
-		
-		int[] arr = new int[ctr];
-		
-		for(int i=0;i<ctr;i++)
-		{
-			arr[i] = scanReal.nextInt();
-		}
-		
-		//JOptionPane.showMessageDialog(this, "{"+ctr+"}");
-		
-		for(int j=0;j<ctr;j++)
-		{
-			for(int k=0;k<ctr;k++)
+			line = scan.nextLine();
+			if(line.trim().length() < 1) // each group is separated with a blank line
 			{
-				if(arr[j] + arr[k] == 2020)
-				{
-					ret = arr[j] * arr[k];
-					JOptionPane.showMessageDialog(this, "("+arr[j]+"),("+arr[k]+")");
-				}
+				groups.add(current); // add this group to the list
+							
+				current = new daySixGroup();
+			}
+			else
+			{
+				current.addMemberReduce(line);
+				
+				//JOptionPane.showMessageDialog(this, "group: "+current.getAnswers());
 			}
 		}
-		scanCtr.close();
-		scanReal.close();
+		groups.add(current); // add the last group to the list
 		
+		for(daySixGroup reader : groups)
+		{
+			if(spamCounter < 4)
+			{
+				JOptionPane.showMessageDialog(this, "group: "+reader.getAnswers());
+				spamCounter ++;
+			}
+			
+			ret += reader.getAnswers().length();
+		}
+		
+		scan.close();
 		return ret;
 	}
 	
-	private int dayOneMainTwo(String filename)
+	class daySixGroup
 	{
-		int ret = 0;
-		Scanner scanCtr = null;
-		Scanner scanReal = null;
-		try
+		private String answers;
+		private boolean hasFirst;
+		
+		daySixGroup()
 		{
-			scanCtr = new Scanner(new File(filename));
-			scanReal = new Scanner(new File(filename));
-		}
-		catch( FileNotFoundException fnfe)
-		{
-			JOptionPane.showMessageDialog(this, "file "+filename+" not found");
+			answers = "";
+			hasFirst = false;
 		}
 		
-		int ctr = 0;
-		while(scanCtr.hasNext()) 
+		daySixGroup(String fill)
 		{
-			scanCtr.nextInt();
-			ctr++;
+			answers = fill;
+			hasFirst = true;
 		}
 		
-		int[] arr = new int[ctr];
-		
-		for(int i=0;i<ctr;i++)
+		protected void addMember(String newAnswers)
 		{
-			arr[i] = scanReal.nextInt();
-		}
-		
-		for(int j=0;j<ctr;j++)
-		{
-			for(int k=0;k<ctr;k++)
+			for(char car : newAnswers.toCharArray())
 			{
-				for(int l=0;l<ctr;l++)
-				{
-					if(arr[j] + arr[k] + arr[l] == 2020)
-					{
-						ret = arr[j] * arr[k] * arr[l];
-						JOptionPane.showMessageDialog(this, "("+arr[j]+"),("+arr[k]+"),("+arr[l]+")");
-					}
-				}
+				if(!answers.contains(""+car))
+					this.answers += car;
 			}
 		}
-		scanCtr.close();
-		scanReal.close();
 		
-		return ret;
+		protected void addMemberReduce(String newAnswers)
+		{
+			String replacementAnswers;
+			
+			if(hasFirst)
+			{
+				replacementAnswers = "";
+				
+				for(char car : newAnswers.toCharArray())
+				{
+					if(answers.contains(""+car))
+						replacementAnswers += car;
+				}
+			}
+			else
+			{
+				replacementAnswers = newAnswers;
+				hasFirst = true;
+			}
+			
+			this.answers = replacementAnswers;
+		}
+		
+		protected String getAnswers()
+		{
+			return answers;
+		}
+		
+		protected void setAnswers(String fill)
+		{
+			answers = fill;
+		}
 	}
 }
+
